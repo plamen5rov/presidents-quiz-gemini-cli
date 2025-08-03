@@ -13,7 +13,7 @@ const PlayerNameInput = () => {
     e.preventDefault();
     if (playerName.trim()) {
       sessionStorage.setItem('playerName', playerName);
-      router.push('/game');
+      router.push('/instructions');
     }
   };
 
@@ -47,7 +47,7 @@ const PlayerNameInput = () => {
             disabled={!playerName.trim()}
             className="w-full px-4 py-3 font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800 disabled:from-blue-400 disabled:to-blue-500 disabled:opacity-70 disabled:cursor-not-allowed transform hover:-translate-y-0.5 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            Start Game
+            ENTER
           </button>
         </form>
         <HallOfFame />
