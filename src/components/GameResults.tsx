@@ -10,9 +10,16 @@ import Image from 'next/image';
 
 const MAX_HIGH_SCORES = 10;
 
+interface ScoreEntry {
+  name: string;
+  score: number;
+  time: number;
+}
+
 const GameResults = () => {
   const searchParams = useSearchParams();
   const score = parseInt(searchParams.get('score') || '0', 10);
+  const time = parseInt(searchParams.get('time') || '0', 10);
   const [history, setHistory] = useState<LevelResult[]>([]);
   const scoreSaved = useRef(false);
 
@@ -20,10 +27,15 @@ const GameResults = () => {
     if (!scoreSaved.current) {
       const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
       const storedScores = localStorage.getItem('highScores');
-      const highScores = storedScores ? JSON.parse(storedScores) : [];
+      const highScores: ScoreEntry[] = storedScores ? JSON.parse(storedScores) : [];
 
-      const newHighScores = [...highScores, { name: playerName, score }]
-        .sort((a, b) => b.score - a.score)
+      const newHighScores = [...highScores, { name: playerName, score, time }]
+        .sort((a, b) => {
+          if (a.score !== b.score) {
+            return b.score - a.score;
+          }
+          return a.time - b.time;
+        })
         .slice(0, MAX_HIGH_SCORES);
 
       localStorage.setItem('highScores', JSON.stringify(newHighScores));
@@ -34,7 +46,7 @@ const GameResults = () => {
     if (gameHistory) {
       setHistory(JSON.parse(gameHistory));
     }
-  }, [score]);
+  }, [score, time]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-800 py-8">
@@ -42,6 +54,7 @@ const GameResults = () => {
         <h2 className="text-4xl font-bold text-white">Game Over!</h2>
         <p className="text-2xl text-gray-300">Your Final Score:</p>
         <p className="text-6xl font-bold text-blue-400">{score}</p>
+        <p className="text-2xl text-gray-300 mt-2">Total Time: {time} seconds</p>
         <Link href="/" passHref>
           <button className="w-full px-4 py-2 mt-4 font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700">
             Play Again
@@ -57,7 +70,7 @@ const GameResults = () => {
                 className="p-4 rounded-lg"
                 style={{ backgroundColor: item.isCorrect ? '#4A9782' : '#B12C00' }}
               >
-                <p className="font-bold text-lg">Level {item.level}</p>
+                <p className="font-bold text-lg">Level {item.level} ({item.timeTaken}s)</p>
                 <p>Target: {item.targetPresident.name}</p>
                 <div className="flex justify-around items-center mt-2">
                   <div>

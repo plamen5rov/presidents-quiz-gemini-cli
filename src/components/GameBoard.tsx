@@ -12,6 +12,7 @@ const GameBoard = () => {
   const {
     level,
     score,
+    totalTime,
     currentPresidents,
     targetPresident,
     isGameOver,
@@ -19,13 +20,14 @@ const GameBoard = () => {
     totalLevels,
     answerStatus,
     selectedPresidentId,
+    timeLeft,
   } = useGame();
 
   React.useEffect(() => {
     if (isGameOver) {
-      router.push(`/results?score=${score}`);
+      router.push(`/results?score=${score}&time=${totalTime}`);
     }
-  }, [isGameOver, score, router]);
+  }, [isGameOver, score, totalTime, router]);
 
   if (!targetPresident) {
     return <div>Loading...</div>;
@@ -41,6 +43,12 @@ const GameBoard = () => {
           <h2 className="text-xl md:text-2xl font-bold">Level {level} of {totalLevels}</h2>
           <div className="text-xl md:text-2xl font-bold">Score: {score}</div>
         </div>
+
+        <div className="text-center my-2 md:my-4 text-white">
+          <span className="text-6xl font-bold drop-shadow-lg">TIME LEFT: </span>
+          <span className="text-6xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
+        </div>
+
         <div className="mb-2 md:mb-4 text-center text-white">
           <p className="text-lg md:text-xl">
             Find: <span className="font-bold">{targetPresident.name}</span> ({targetPresident.years})

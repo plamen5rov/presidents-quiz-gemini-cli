@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 interface ScoreEntry {
   name: string;
   score: number;
+  time: number;
 }
 
 const HallOfFame = () => {
@@ -34,7 +35,7 @@ const HallOfFame = () => {
           {highScores.map((entry, index) => (
             <li key={index} className="flex justify-between text-2xl text-stone-800 font-bold">
               <span>{index + 1}. {entry.name}</span>
-              <span>{entry.score}</span>
+              <span>{entry.score} pts ({entry.time}s)</span>
             </li>
           ))}
         </ol>
