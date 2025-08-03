@@ -11,7 +11,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-lora)'],
         pirata: ['var(--font-pirata)'],
-        oswald: ['var(--font-oswald)'],
+        orbitron: ['var(--font-orbitron)'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

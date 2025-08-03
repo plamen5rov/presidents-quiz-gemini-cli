@@ -19,12 +19,14 @@ const PlayerNameInput = () => {
 
   return (
     <div 
-      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center p-4"
+      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center"
       style={{ backgroundImage: "url('/images/oval-office.jpg')" }}
     >
-      <h1 className="text-5xl md:text-8xl font-oswald font-extrabold text-black text-center uppercase mb-8" style={{ textShadow: '2px 2px 0px rgba(255, 255, 255, 0.7)' }}>
-        U.S. Presidents Quiz
-      </h1>
+      <div className="w-full bg-blue-900/90 py-4 mb-8">
+        <h1 className="text-5xl md:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+          U.S. Presidents Quiz
+        </h1>
+      </div>
       
       <div className="w-full max-w-md p-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
         <form onSubmit={handleStartGame} className="space-y-6">
