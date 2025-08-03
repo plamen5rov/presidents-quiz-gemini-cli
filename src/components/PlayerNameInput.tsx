@@ -27,7 +27,7 @@ const PlayerNameInput = () => {
         </h2>
         <form onSubmit={handleStartGame} className="space-y-6">
           <div>
-            <label htmlFor="playerName" className="text-sm font-medium text-gray-900">
+            <label htmlFor="playerName" className="text-sm font-medium text-black">
               Enter Your Name
             </label>
             <input
@@ -37,7 +37,7 @@ const PlayerNameInput = () => {
               required
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 placeholder-gray-600"
               placeholder="e.g., Jane Doe"
             />
           </div>
