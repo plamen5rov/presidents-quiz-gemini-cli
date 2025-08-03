@@ -33,20 +33,20 @@ const GameBoard = () => {
 
   return (
     <div 
-      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-4"
+      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-2 md:p-4"
     >
       <ConfettiEffect trigger={answerStatus === 'correct'} />
-      <div className="w-full max-w-4xl">
-        <div className="flex justify-between items-center mb-4 text-white">
-          <h2 className="text-2xl font-bold">Level {level} of {totalLevels}</h2>
-          <div className="text-2xl font-bold">Score: {score}</div>
+      <div className="w-full max-w-5xl">
+        <div className="flex justify-between items-center mb-2 md:mb-4 text-white">
+          <h2 className="text-xl md:text-2xl font-bold">Level {level} of {totalLevels}</h2>
+          <div className="text-xl md:text-2xl font-bold">Score: {score}</div>
         </div>
-        <div className="mb-4 text-center text-white">
-          <p className="text-xl">
+        <div className="mb-2 md:mb-4 text-center text-white">
+          <p className="text-lg md:text-xl">
             Find: <span className="font-bold">{targetPresident.name}</span> ({targetPresident.years})
           </p>
         </div>
-        <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
           {currentPresidents.map((president) => (
             <div key={president.id} onClick={() => handleAnswer(president.id)}>
               <PresidentCard

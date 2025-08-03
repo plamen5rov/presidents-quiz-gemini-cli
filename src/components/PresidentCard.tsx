@@ -34,7 +34,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
       <div 
         className={`bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer border-4 ${getBorderColor()} ${isLoading ? 'opacity-0' : 'opacity-100'}`}
       >
-        <div className="relative w-full" style={{ paddingTop: '125%' }}>
+        <div className="relative w-full" style={{ paddingTop: '100%' }}>
           <Image
             src={president.portrait}
             alt={president.name}
