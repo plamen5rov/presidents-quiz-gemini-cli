@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# U.S. Presidents Quiz
 
-## Getting Started
+Welcome to the U.S. Presidents Quiz! This is a fun and challenging web-based game designed to test your knowledge of American history. Can you identify the U.S. presidents from their portraits before time runs out?
 
-First, run the development server:
+![Game Screenshot](public/images/paper.jpg) <!-- You can replace this with a real screenshot of the game later -->
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **10 Levels of Challenge:** The game takes you through 10 timed levels of increasing difficulty.
+-   **Timed Guesses:** You have 10 seconds to identify the correct president in each level, adding a layer of excitement.
+-   **Interactive Gameplay:** Click on the portrait that matches the president's name and years of service.
+-   **Instant Feedback:** Get immediate visual feedback on your answers with colored borders and a confetti celebration for correct choices.
+-   **Hall of Fame:** Your final score and total time are ranked! Compete for the top spot. The ranking is based on the highest score, with the fastest time as a tie-breaker.
+-   **Answer Review:** At the end of the game, review your answers to see where you excelled and learn from your mistakes.
+-   **Responsive Design:** Enjoy a seamless experience on both desktop and mobile devices.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Framework:** [Next.js](https://nextjs.org/)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+-   **Fonts:** Google Fonts (`Lora` & `Pirata One`)
 
-## Learn More
+## 🛠️ Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+To run this project locally, follow these simple steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4.  Open [http://localhost:3000](http://localhost:3000) in your browser to start playing!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⭐ Like this project?
+
+If you enjoyed playing this game or found the code helpful, please consider giving this repository a star! It's a great way to show your support. Thank you!
