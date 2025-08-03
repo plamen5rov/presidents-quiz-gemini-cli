@@ -22,10 +22,10 @@ const PlayerNameInput = () => {
       className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center p-4"
       style={{ backgroundImage: "url('/us-flag.jpg')" }}
     >
-      <h1 className="text-7xl font-extrabold text-white text-center mb-8" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+      <h1 className="text-8xl font-oswald font-extrabold text-black text-center uppercase" style={{ textShadow: '2px 2px 0px rgba(255, 255, 255, 0.7)' }}>
         U.S. Presidents Quiz
       </h1>
-      <div className="w-full max-w-md p-8 space-y-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
+      <div className="w-full max-w-md p-8 mt-8 space-y-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
         <form onSubmit={handleStartGame} className="space-y-6">
           <div>
             <label htmlFor="playerName" className="text-xl font-medium text-black">
