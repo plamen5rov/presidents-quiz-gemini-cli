@@ -36,7 +36,7 @@ const GameBoard = () => {
       className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-2 md:p-4"
     >
       <ConfettiEffect trigger={answerStatus === 'correct'} />
-      <div className="w-full max-w-5xl">
+      <div className="w-full max-w-7xl">
         <div className="flex justify-between items-center mb-2 md:mb-4 text-white">
           <h2 className="text-xl md:text-2xl font-bold">Level {level} of {totalLevels}</h2>
           <div className="text-xl md:text-2xl font-bold">Score: {score}</div>
