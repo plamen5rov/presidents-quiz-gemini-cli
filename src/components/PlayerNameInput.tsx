@@ -20,7 +20,7 @@ const PlayerNameInput = () => {
   return (
     <div 
       className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center p-4"
-      style={{ backgroundImage: "url('/us-flag.jpg')" }}
+      style={{ backgroundImage: "url('/images/oval-office.jpg')" }}
     >
       <h1 className="text-5xl md:text-8xl font-oswald font-extrabold text-black text-center uppercase mb-8" style={{ textShadow: '2px 2px 0px rgba(255, 255, 255, 0.7)' }}>
         U.S. Presidents Quiz
