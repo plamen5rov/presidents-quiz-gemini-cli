@@ -1,19 +1,43 @@
 // src/components/GameBoard.tsx
+'use client';
+
 import React from 'react';
-import { presidents } from '@/data/presidents';
+import { useGame } from '@/hooks/useGame';
 import PresidentCard from './PresidentCard';
+import ConfettiEffect from './ConfettiEffect';
+import { useRouter } from 'next/navigation';
 
 const GameBoard = () => {
-  // Temporary: Select first 12 presidents for display
-  const currentPresidents = presidents.slice(0, 12);
-  const targetPresident = currentPresidents[Math.floor(Math.random() * currentPresidents.length)];
+  const router = useRouter();
+  const {
+    level,
+    score,
+    currentPresidents,
+    targetPresident,
+    isGameOver,
+    handleAnswer,
+    totalLevels,
+    answerStatus,
+    selectedPresidentId,
+  } = useGame();
+
+  React.useEffect(() => {
+    if (isGameOver) {
+      router.push(`/results?score=${score}`);
+    }
+  }, [isGameOver, score, router]);
+
+  if (!targetPresident) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <ConfettiEffect trigger={answerStatus === 'correct'} />
       <div className="w-full max-w-4xl">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Level 1 of 10</h2>
-          <div className="text-2xl font-bold text-blue-500">Score: 0</div>
+          <h2 className="text-2xl font-bold text-gray-800">Level {level} of {totalLevels}</h2>
+          <div className="text-2xl font-bold text-blue-500">Score: {score}</div>
         </div>
         <div className="mb-4 text-center">
           <p className="text-xl text-gray-700">
@@ -22,7 +46,15 @@ const GameBoard = () => {
         </div>
         <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
           {currentPresidents.map((president) => (
-            <PresidentCard key={president.id} president={president} />
+            <div key={president.id} onClick={() => handleAnswer(president.id)}>
+              <PresidentCard
+                president={president}
+                isSelected={president.id === selectedPresidentId}
+                isCorrect={president.id === targetPresident.id}
+                isTarget={president.id === targetPresident.id}
+                answerStatus={answerStatus}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -31,3 +63,5 @@ const GameBoard = () => {
 };
 
 export default GameBoard;
+
+
