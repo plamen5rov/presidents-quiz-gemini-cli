@@ -19,19 +19,27 @@ const HallOfFame = () => {
   }, []);
 
   return (
-    <div className="w-full p-4 mt-8 bg-gray-50 rounded-lg shadow-inner">
-      <h3 className="text-xl font-bold text-center text-black mb-4">Hall of Fame</h3>
+    <div 
+      className="w-full p-6 mt-8 rounded-lg shadow-inner border-4 border-amber-900/50"
+      style={{ 
+        backgroundImage: "url('/images/paper.jpg')",
+        backgroundSize: 'cover' 
+      }}
+    >
+      <h3 className="text-4xl font-bold text-center text-stone-800 mb-4 font-pirata">
+        Hall of Fame
+      </h3>
       {highScores.length > 0 ? (
-        <ol className="space-y-2">
+        <ol className="space-y-3 font-pirata">
           {highScores.map((entry, index) => (
-            <li key={index} className="flex justify-between text-lg text-gray-800">
+            <li key={index} className="flex justify-between text-2xl text-stone-800 font-bold">
               <span>{index + 1}. {entry.name}</span>
-              <span className="font-bold">{entry.score}</span>
+              <span>{entry.score}</span>
             </li>
           ))}
         </ol>
       ) : (
-        <p className="text-center text-gray-600">No high scores yet. Be the first!</p>
+        <p className="text-center text-xl text-stone-800 font-pirata">No high scores yet. Be the first!</p>
       )}
     </div>
   );

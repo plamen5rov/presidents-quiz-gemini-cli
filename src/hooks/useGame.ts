@@ -81,7 +81,7 @@ export const useGame = () => {
 
     setTimeout(() => {
       setLevel(prevLevel => prevLevel + 1);
-    }, 1500);
+    }, 3500);
   };
 
   useEffect(() => {

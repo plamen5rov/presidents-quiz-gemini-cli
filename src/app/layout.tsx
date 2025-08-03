@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
+import { Lora, Pirata_One } from "next/font/google";
 import "./globals.css";
 
-const lora = Lora({ subsets: ["latin"] });
+const lora = Lora({ 
+  subsets: ["latin"],
+  variable: '--font-lora',
+});
+
+const pirata = Pirata_One({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-pirata',
+});
 
 export const metadata: Metadata = {
   title: "U.S. Presidents Quiz",
@@ -16,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={lora.className}>{children}</body>
+      <body className={`${lora.variable} ${pirata.variable} font-sans`}>{children}</body>
     </html>
   );
 }
