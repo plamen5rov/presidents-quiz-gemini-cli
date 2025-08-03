@@ -4,7 +4,7 @@ This document summarizes the development process and current state of the "U.S. 
 
 ## 1. Project Overview
 
-The goal was to build a web-based quiz game where players identify U.S. presidents based on their portrait, name, and years of service. The project was built using Next.js, TypeScript, and Tailwind CSS.
+The goal was to build a web-based quiz game where players identify U.S. presidents. The project was built using Next.js, TypeScript, and Tailwind CSS.
 
 ## 2. Key Technologies & Libraries
 
@@ -14,6 +14,7 @@ The goal was to build a web-based quiz game where players identify U.S. presiden
 - **Fonts:**
   - `Lora`: Main application font.
   - `Pirata One`: Thematic font for the Hall of Fame.
+  - `Orbitron`: Bold, modern font for the main title.
 - **Libraries:**
   - `canvas-confetti`: For the celebration effect on correct answers.
 
@@ -22,7 +23,7 @@ The goal was to build a web-based quiz game where players identify U.S. presiden
 - **Game Flow:**
   - **Start Screen:** Player enters their name.
   - **Instructions Screen:** Displays game rules before starting.
-  - **Game Board:** 10 timed levels where the player guesses the correct president from a grid of 12 portraits.
+  - **Game Board:** 10 timed levels where the player guesses the correct president.
   - **Results Screen:** Shows the final score, total time, and a detailed answer review.
 - **Scoring System:**
   - +10 points for a correct answer.
@@ -32,35 +33,34 @@ The goal was to build a web-based quiz game where players identify U.S. presiden
   - Persists in `localStorage`.
   - Ranks the top 10 players.
   - Scoring is based first on points, then on the lowest time as a tie-breaker.
-- **Visual Feedback:**
-  - Correct/incorrect answers are indicated with colored borders on the cards.
-  - A confetti effect triggers on correct answers.
+- **Custom Favicon:** A US map icon is used for the browser tab.
 
 ## 4. Component Breakdown
 
 - `src/components/PlayerNameInput.tsx`: The initial screen for player name entry.
 - `src/components/Instructions.tsx`: The screen displaying game rules.
-- `src/components/GameBoard.tsx`: The main game interface, including the timer and grid of cards.
+- `src/components/GameBoard.tsx`: The main game interface.
 - `src/components/PresidentCard.tsx`: The individual card for each president's portrait.
-- `src/components/GameResults.tsx`: The end-of-game screen with score, time, and answer review.
+- `src/components/GameResults.tsx`: The end-of-game screen.
 - `src/components/HallOfFame.tsx`: Displays the high scores.
 - `src/components/ConfettiEffect.tsx`: Renders the confetti animation.
 - `src/components/SkeletonCard.tsx`: A loading placeholder for the president portraits.
-- `src/hooks/useGame.ts`: A custom hook that encapsulates all game logic (state management, level generation, scoring, timing, history).
+- `src/hooks/useGame.ts`: A custom hook that encapsulates all game logic.
 
 ## 5. Key Styling Decisions
 
-- **Start Screen:** US flag background with a semi-transparent white overlay for the form. The "ENTER" button has a modern gradient style.
-- **Instructions Screen:** Dark blue-to-red gradient background with custom SVG icons for bullet points.
+- **Start Screen:** Features a background of the Oval Office. The main title uses the "Orbitron" font and is displayed over a full-width, semi-transparent dark blue strip. The Hall of Fame is displayed below the main form.
+- **Instructions Screen:** Dark gradient background with custom SVG icons for bullet points.
 - **Game Screen:** Dark blue-to-dark-red vertical gradient background. The timer is large and prominent.
 - **Results Screen:** Black-to-dark-gray vertical gradient background. Correct/incorrect answers in the review have custom green (`#4A9782`) and red (`#B12C00`) backgrounds.
-- **Hall of Fame:** Themed with a tiled parchment paper background and the "Pirata One" font for a classic look.
+- **Hall of Fame:** Themed with a `paper.jpg` background and the "Pirata One" font for a classic look.
 
-## 6. Major Bugs Fixed
+## 6. Major Bugs & Issues Resolved
 
 - **Infinite Loop:** Resolved a `useEffect` dependency loop in the `useGame` hook.
-- **Duplicate Hall of Fame Entries:** Fixed an issue where scores were saved twice due to React's Strict Mode by using a `useRef` to track if the score was already saved.
-- **Font/Image Visibility:** Addressed multiple issues with text colors, placeholder visibility, and incorrect/corrupted background images.
+- **Duplicate Hall of Fame Entries:** Fixed an issue where scores were saved twice due to React's Strict Mode.
+- **Layout & Responsiveness:** Fixed multiple issues with overlapping elements and adjusted font/element sizes for better mobile and desktop views.
+- **Persistent Vercel/Next.js Logo:** After multiple failed attempts to remove the injected logo, a CSS override (`body > svg { display: none !important; }`) was added to `globals.css` to hide it.
 
 ---
-*This summary was created to provide context for the next development session.*
+*This summary was last updated on Aug 3, 2025, to reflect the final state of the application.*
