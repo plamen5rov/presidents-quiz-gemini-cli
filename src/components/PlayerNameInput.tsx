@@ -20,11 +20,11 @@ const PlayerNameInput = () => {
   return (
     <div 
       className="flex items-center justify-center min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/us-flag.jpg')" }}
+      style={{ backgroundImage: "url('/us-map.png')" }}
     >
       <div 
         className="w-full max-w-md p-8 space-y-8 rounded-lg shadow-lg bg-cover bg-center"
-        style={{ backgroundImage: "url('/us-map.png')" }}
+        style={{ backgroundImage: "url('/us-flag.jpg')" }}
       >
         <div className="bg-white/70 backdrop-blur-sm p-8 rounded-lg">
           <h2 className="text-3xl font-bold text-center text-gray-900">
