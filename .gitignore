@@ -1,49 +1,41 @@
-# VS Code
-.vscode/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Next.js
-.next/
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# OS generated files
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
+*.pem
 
-# Node.js
-node_modules/
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.pyc
-*.env
-.env
-venv/
-env/
-*.egg-info/
-dist/
-build/
+# env files (can opt-in for committing if needed)
+.env*
 
-# VS Code
-.vscode/
+# vercel
+.vercel
 
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Misc
-*.swp
-*.swo
-*.bak
-*.tmp
-
-# Coverage
-coverage/
-*.cover
+# typescript
+*.tsbuildinfo
+next-env.d.ts
