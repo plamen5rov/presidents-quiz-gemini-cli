@@ -1,12 +1,12 @@
+import { President } from '@/data/presidents';
 // src/hooks/useGame.test.ts
 import { renderHook, act } from '@testing-library/react';
 import { useGame } from './useGame';
-import { presidents } from '@/data/presidents';
 
 // Mock the shuffleArray function to control the order of presidents
 jest.mock('@/data/presidents', () => ({
   ...jest.requireActual('@/data/presidents'),
-  shuffleArray: (array: any[]) => array,
+  shuffleArray: (array: President[]) => array,
 }));
 
 describe('useGame hook', () => {
