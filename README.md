@@ -49,18 +49,17 @@ To run this project locally, follow these simple steps:
 4.  Open [http://localhost:3000](http://localhost:3000) in your browser to start playing!
 
 ## 🎮 Live Demo
-[👉 Play the Game Here](https://your-username.github.io/guess-the-president)  
+[👉 Play the Game Here](https://github.com/plamen5rov/presidents-quiz-gemini-cli)  
 
+
+## 👨‍💻 Author
+- **Plamen Petrov** – [@plamen5rov](https://github.com/plamen5rov)
 
 ## 📄 License
 This project is licensed under the [MIT License](https://img.shields.io/badge/license-MIT-green)
 
-
 ## ⚠️ Disclaimer
 This game is for educational and informational purposes only. It is not affiliated with or endorsed by any government agency or public office.
-
-## 👨‍💻 Author
-- **Plamen Petrov** – [@plamen5rov](https://github.com/plamen5rov)
 
 
 ## ⭐ Like this project?
@@ -68,3 +67,7 @@ This game is for educational and informational purposes only. It is not affiliat
 If you enjoyed playing this game or found the code helpful, please consider giving this repository a star! It's a great way to show your support. Thank you!
 
 [![GitHub stars](https://img.shields.io/github/stars/plamen5rov/presidents-quiz-gemini-cli?style=social)](https://github.com/plamen5rov/presidents-quiz-gemini-cli/stargazers)
+
+## 📈 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=plamen5rov/presidents-quiz-gemini-cli&type=Date)](https://star-history.com/#your-username/guess-the-president&Date)
