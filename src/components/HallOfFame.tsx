@@ -3,23 +3,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-
-interface ScoreEntry {
-  playerName: string;
-  score: number;
-}
+import { getHallOfFame, ScoreEntry } from '@/utils/hallOfFame';
 
 const HallOfFame = () => {
   const [highScores, setHighScores] = useState<ScoreEntry[]>([]);
 
   useEffect(() => {
-    const fetchHighScores = async () => {
-      const response = await fetch('/api/hall-of-fame');
-      const data = await response.json();
-      setHighScores(data);
-    };
-
-    fetchHighScores();
+    setHighScores(getHallOfFame());
   }, []);
 
   const listVariants = {

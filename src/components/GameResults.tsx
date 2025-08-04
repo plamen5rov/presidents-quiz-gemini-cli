@@ -8,20 +8,7 @@ import HallOfFame from './HallOfFame';
 import { LevelResult } from '@/hooks/useGame';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-
-const saveHighScore = async (playerName: string, score: number) => {
-  try {
-    await fetch('/api/hall-of-fame', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ playerName, score }),
-    });
-  } catch (error) {
-    console.error('Failed to save high score:', error);
-  }
-};
+import { saveScore } from '@/utils/hallOfFame';
 
 const GameResults = () => {
   const searchParams = useSearchParams();
@@ -33,7 +20,7 @@ const GameResults = () => {
   useEffect(() => {
     if (!scoreSaved.current) {
       const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
-      saveHighScore(playerName, score);
+      saveScore(playerName, score);
       scoreSaved.current = true;
     }
   }, [score]);
