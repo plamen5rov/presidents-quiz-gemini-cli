@@ -51,6 +51,12 @@ To run this project locally, follow these simple steps:
 ## 🎮 Live Demo
 [👉 Play the Game Here](https://github.com/plamen5rov/presidents-quiz-gemini-cli)  
 
+## 🎮 Demo
+
+![Gameplay Demo](./public/video.gif)
+
+
+
 ## 👨‍💻 Author: **Plamen Petrov** – [@plamen5rov](https://github.com/plamen5rov)
 
 ## 📄 License

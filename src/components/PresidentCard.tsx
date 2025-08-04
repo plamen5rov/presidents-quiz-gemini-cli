@@ -10,9 +10,10 @@ interface PresidentCardProps {
   isCorrect: boolean;
   isTarget: boolean;
   answerStatus: 'correct' | 'incorrect' | 'idle';
+  onClick: () => void;
 }
 
-const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, isCorrect, isTarget, answerStatus }) => {
+const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, isCorrect, isTarget, answerStatus, onClick }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [ripples, setRipples] = useState<React.CSSProperties[]>([]);
 
@@ -30,6 +31,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
   };
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    onClick();
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);

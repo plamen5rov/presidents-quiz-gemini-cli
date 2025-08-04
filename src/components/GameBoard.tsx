@@ -56,15 +56,15 @@ const GameBoard = () => {
         </div>
         <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
           {currentPresidents.map((president) => (
-            <div key={president.id} onClick={() => handleAnswer(president.id)}>
-              <PresidentCard
-                president={president}
-                isSelected={president.id === selectedPresidentId}
-                isCorrect={president.id === targetPresident.id}
-                isTarget={president.id === targetPresident.id}
-                answerStatus={answerStatus}
-              />
-            </div>
+            <PresidentCard
+              key={president.id}
+              president={president}
+              isSelected={president.id === selectedPresidentId}
+              isCorrect={president.id === targetPresident.id}
+              isTarget={president.id === targetPresident.id}
+              answerStatus={answerStatus}
+              onClick={() => handleAnswer(president.id)}
+            />
           ))}
         </div>
       </div>
