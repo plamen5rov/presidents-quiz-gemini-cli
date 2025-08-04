@@ -23,9 +23,12 @@ const PlayerNameInput = () => {
       style={{ backgroundImage: "url('/images/oval-office.jpg')" }}
     >
       <header className="w-full bg-blue-900/90 py-4">
-        <h1 className="text-5xl md:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
-          U.S. Presidents Quiz
-        </h1>
+        <div className="flex justify-center items-center">
+          <img src="/images/whitehouse.png" alt="White House" className="h-12 md:h-32 mr-4" />
+          <h1 className="text-5xl md:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+            U.S. Presidents Quiz
+          </h1>
+        </div>
       </header>
 
       <main className="flex-grow flex flex-col items-center p-4">
