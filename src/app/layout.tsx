@@ -35,6 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+    <head>
+      <script defer src="https://cloud.umami.is/script.js" data-website-id="4a407f6f-1710-4d11-b488-74288e53fc4e"></script>
+    </head>
       <body className={`${lora.variable} ${pirata.variable} ${orbitron.variable} font-sans`}>{children}</body>
     </html>
   );
