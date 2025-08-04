@@ -51,16 +51,13 @@ To run this project locally, follow these simple steps:
 ## 🎮 Live Demo
 [👉 Play the Game Here](https://github.com/plamen5rov/presidents-quiz-gemini-cli)  
 
-
-## 👨‍💻 Author
-- **Plamen Petrov** – [@plamen5rov](https://github.com/plamen5rov)
+## 👨‍💻 Author: **Plamen Petrov** – [@plamen5rov](https://github.com/plamen5rov)
 
 ## 📄 License
 This project is licensed under the [MIT License](https://img.shields.io/badge/license-MIT-green)
 
 ## ⚠️ Disclaimer
 This game is for educational and informational purposes only. It is not affiliated with or endorsed by any government agency or public office.
-
 
 ## ⭐ Like this project?
 
@@ -70,4 +67,5 @@ If you enjoyed playing this game or found the code helpful, please consider givi
 
 ## 📈 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=plamen5rov/presidents-quiz-gemini-cli&type=Date)](https://star-history.com/#your-username/guess-the-president&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=plamen5rov/presidents-quiz-gemini-cli&type=Date)](https://www.star-history.com/#plamen5rov/presidents-quiz-gemini-cli&Date)
+
