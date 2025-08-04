@@ -53,6 +53,7 @@ const PlayerNameInput = () => {
               type="submit"
               disabled={!playerName.trim()}
               className="w-full px-4 py-3 font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800 disabled:from-blue-400 disabled:to-blue-500 disabled:opacity-70 disabled:cursor-not-allowed transform hover:-translate-y-0.5 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              aria-label="Start the quiz"
             >
               ENTER
             </button>
@@ -68,10 +69,10 @@ const PlayerNameInput = () => {
           <p className="text-white font-sans text-center text-lg">
             This game is for educational purposes only and is not affiliated with any official organization. © 2025 <a href="mailto:biznetmen@gmail.com" className="underline hover:text-blue-300">Plamen Petrov</a>.
           </p>
-          <a href="https://www.facebook.com/biznetmen/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.facebook.com/biznetmen/" target="_blank" rel="noopener noreferrer" aria-label="Facebook page for Plamen Petrov">
             <img src="/images/facebook.svg" alt="Facebook" className="w-6 h-6" />
           </a>
-          <a href="https://github.com/plamen5rov" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/plamen5rov" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile for Plamen Petrov">
             <img src="/images/github.svg" alt="GitHub" className="w-6 h-6" />
           </a>
         </div>

@@ -1,7 +1,7 @@
 // src/components/GameResults.tsx
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import HallOfFame from './HallOfFame';
@@ -17,37 +17,43 @@ interface ScoreEntry {
   time: number;
 }
 
+const saveHighScore = (name: string, score: number, time: number) => {
+  try {
+    const storedScores = localStorage.getItem('highScores');
+    const highScores: ScoreEntry[] = storedScores ? JSON.parse(storedScores) : [];
+
+    const newHighScores = [...highScores, { name, score, time }]
+      .sort((a, b) => {
+        if (a.score !== b.score) {
+          return b.score - a.score;
+        }
+        return a.time - b.time;
+      })
+      .slice(0, MAX_HIGH_SCORES);
+
+    localStorage.setItem('highScores', JSON.stringify(newHighScores));
+  } catch (error) {
+    console.error('Failed to save high score:', error);
+  }
+};
+
 const GameResults = () => {
   const searchParams = useSearchParams();
   const score = parseInt(searchParams.get('score') || '0', 10);
   const time = parseInt(searchParams.get('time') || '0', 10);
   const [history, setHistory] = useState<LevelResult[]>([]);
-  const scoreSaved = useRef(false);
 
   useEffect(() => {
-    if (!scoreSaved.current) {
-      const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
-      const storedScores = localStorage.getItem('highScores');
-      const highScores: ScoreEntry[] = storedScores ? JSON.parse(storedScores) : [];
+    const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
+    saveHighScore(playerName, score, time);
+  }, [score, time]);
 
-      const newHighScores = [...highScores, { name: playerName, score, time }]
-        .sort((a, b) => {
-          if (a.score !== b.score) {
-            return b.score - a.score;
-          }
-          return a.time - b.time;
-        })
-        .slice(0, MAX_HIGH_SCORES);
-
-      localStorage.setItem('highScores', JSON.stringify(newHighScores));
-      scoreSaved.current = true;
-    }
-
+  useEffect(() => {
     const gameHistory = sessionStorage.getItem('gameHistory');
     if (gameHistory) {
       setHistory(JSON.parse(gameHistory));
     }
-  }, [score, time]);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },

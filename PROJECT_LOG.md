@@ -64,3 +64,28 @@ The goal was to build a web-based quiz game where players identify U.S. presiden
 
 ---
 *This summary was last updated on Aug 3, 2025, to reflect the final state of the application.*
+
+---
+## Log - 2025-08-04
+
+### Styling
+- Changed the "Hall of Fame" background to 80% opacity.
+- Added a red footer to the starting screen.
+- Adjusted the footer size.
+- Added text to the footer.
+- Updated the footer text.
+- Added copyright and mailto link to the footer.
+- Added Facebook and GitHub icons to the footer.
+- Added a White House image to the header and adjusted its size.
+
+### Optimization
+- Removed the unused `tsx` dependency.
+- Created a new git branch `feature/remove-tsx-dependency` before removing the dependency.
+- Refactored the `GameBoard` and `PresidentCard` components to simplify the `onClick` handler.
+- Refactored the `useGame` hook to simplify the game logic.
+- Refactored the `GameResults` component to improve readability and separation of concerns.
+
+### Testing
+- Installed and configured Jest and React Testing Library.
+- Wrote unit tests for the `useGame` hook, covering initialization, correct/incorrect answers, and game over conditions.
+- Resolved several configuration issues to get the test suite running successfully.

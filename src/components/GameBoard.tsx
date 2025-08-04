@@ -29,6 +29,23 @@ const GameBoard = () => {
     }
   }, [isGameOver, score, totalTime, router]);
 
+  React.useEffect(() => {
+    // Preload images for the next level
+    if (level < totalLevels) {
+      const nextLevelPresidents = currentPresidents.map(p => {
+        const nextPresident = presidents.find(np => np.id === p.id + 1);
+        return nextPresident ? nextPresident.portrait : null;
+      }).filter(Boolean);
+
+      nextLevelPresidents.forEach(portrait => {
+        if (portrait) {
+          const img = new window.Image();
+          img.src = portrait;
+        }
+      });
+    }
+  }, [level, totalLevels, currentPresidents]);
+
   if (!targetPresident) {
     return <div>Loading...</div>;
   }

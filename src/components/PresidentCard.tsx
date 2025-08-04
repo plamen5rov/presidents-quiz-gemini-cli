@@ -52,21 +52,52 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
     }, 600);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onClick();
+    }
+  };
+
+  const [imageError, setImageError] = useState(false);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onClick();
+    }
+  };
+
   return (
-    <div className="relative" onClick={handleClick}>
+    <div 
+      className="relative" 
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`Select ${president.name}`}
+    >
       {isLoading && <SkeletonCard />}
       <div 
-        className={`bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer border-4 ${getBorderColor()} ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        className={`bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer border-4 ${getBorderColor()} ${isLoading || imageError ? 'opacity-0' : 'opacity-100'}`}
       >
         <div className="relative w-full" style={{ paddingTop: '100%' }}>
-          <Image
-            src={president.portrait}
-            alt={president.name}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-lg"
-            onLoad={() => setIsLoading(false)}
-          />
+          {!imageError ? (
+            <Image
+              src={president.portrait}
+              alt={president.name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-t-lg"
+              onLoad={() => setIsLoading(false)}
+              onError={() => {
+                setIsLoading(false);
+                setImageError(true);
+              }}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+              <p className="text-red-500 text-center">Image not available</p>
+            </div>
+          )}
            {ripples.map((style, index) => (
             <span key={index} className="ripple" style={style} />
           ))}
@@ -75,6 +106,11 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
           {/* Name removed for quiz */}
         </div>
       </div>
+      {imageError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-lg">
+          <p className="text-red-500 text-center">Image not available</p>
+        </div>
+      )}
     </div>
   );
 };

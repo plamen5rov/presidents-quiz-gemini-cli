@@ -37,6 +37,14 @@ export const useGame = () => {
   const [selectedPresidentId, setSelectedPresidentId] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(TIME_PER_LEVEL);
 
+  const advanceLevel = useCallback(() => {
+    if (level < TOTAL_LEVELS) {
+      setLevel(prevLevel => prevLevel + 1);
+    } else {
+      setIsGameOver(true);
+    }
+  }, [level]);
+
   const handleAnswer = useCallback((presidentId: number) => {
     if (answerStatus !== 'idle' || !targetPresident) return;
 
@@ -56,17 +64,10 @@ export const useGame = () => {
       setAnswerStatus('incorrect');
     }
 
-    setTimeout(() => {
-      setLevel(prevLevel => prevLevel + 1);
-    }, 3500);
-  }, [answerStatus, level, targetPresident, timeLeft]);
+    setTimeout(advanceLevel, 3500);
+  }, [answerStatus, level, targetPresident, timeLeft, advanceLevel]);
 
   const generateLevel = useCallback(() => {
-    if (level > TOTAL_LEVELS) {
-      setIsGameOver(true);
-      return;
-    }
-
     const shuffledPresidents = shuffleArray(presidents);
     
     setTargetPresident(prevTarget => {
@@ -81,11 +82,13 @@ export const useGame = () => {
     setAnswerStatus('idle');
     setSelectedPresidentId(null);
     setTimeLeft(TIME_PER_LEVEL);
-  }, [level]);
+  }, []);
 
   useEffect(() => {
-    generateLevel();
-  }, [level, generateLevel]);
+    if (!isGameOver) {
+      generateLevel();
+    }
+  }, [level, isGameOver, generateLevel]);
 
   useEffect(() => {
     if (answerStatus !== 'idle' || isGameOver) return;
@@ -99,7 +102,11 @@ export const useGame = () => {
 
   useEffect(() => {
     if (isGameOver) {
-      sessionStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+      try {
+        sessionStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+      } catch (error) {
+        console.error('Failed to save game history:', error);
+      }
     }
   }, [isGameOver, gameHistory]);
 
