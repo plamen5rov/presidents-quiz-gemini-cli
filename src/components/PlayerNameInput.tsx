@@ -19,16 +19,16 @@ const PlayerNameInput = () => {
 
   return (
     <div 
-      className="min-h-screen bg-cover bg-center"
+      className="min-h-screen bg-cover bg-center flex flex-col"
       style={{ backgroundImage: "url('/images/oval-office.jpg')" }}
     >
-      <div className="w-full bg-blue-900/90 py-4">
+      <header className="w-full bg-blue-900/90 py-4">
         <h1 className="text-5xl md:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
           U.S. Presidents Quiz
         </h1>
-      </div>
+      </header>
 
-      <div className="flex flex-col items-center p-4">
+      <main className="flex-grow flex flex-col items-center p-4">
         <div className="w-full max-w-md p-8 mt-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
           <form onSubmit={handleStartGame} className="space-y-6">
             <div>
@@ -59,7 +59,10 @@ const PlayerNameInput = () => {
         <div className="w-full max-w-md mt-8 mb-8">
           <HallOfFame />
         </div>
-      </div>
+      </main>
+      <footer className="w-full bg-red-800/90 py-6">
+        <p className="text-white font-sans text-center text-lg">This game is for educational purposes only.</p>
+      </footer>
     </div>
   );
 };
