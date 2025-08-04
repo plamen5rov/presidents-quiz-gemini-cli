@@ -159,7 +159,7 @@ export const presidents: President[] = [
     order: 22,
     name: 'Grover Cleveland',
     years: '1885-1889',
-    portrait: '/presidents/22-cleveland.jpg',
+    portrait: '/presidents/22-24-cleveland.jpg',
   },
   {
     id: 23,
