@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { useGame } from '@/hooks/useGame';
+import { presidents } from '@/data/presidents';
 import PresidentCard from './PresidentCard';
 import ConfettiEffect from './ConfettiEffect';
 import { useRouter } from 'next/navigation';
