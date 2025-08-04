@@ -1,6 +1,5 @@
 // src/components/PresidentCard.tsx
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { President } from '@/data/presidents';
 import SkeletonCard from './SkeletonCard';
 
@@ -25,15 +24,15 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
   const [ripples, setRipples] = useState<React.CSSProperties[]>([]);
   const [imageError, setImageError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  const [imageKey, setImageKey] = useState(0); // Force image reload
+  const [imageSrc, setImageSrc] = useState('');
 
   // Reset state when president changes
   useEffect(() => {
     setIsLoading(true);
     setImageError(false);
     setRetryCount(0);
-    setImageKey(prev => prev + 1);
-  }, [president.id]);
+    setImageSrc(president.portrait);
+  }, [president.id, president.portrait]);
 
   const getBorderColor = () => {
     if (answerStatus === 'idle') {
@@ -71,16 +70,23 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
   };
 
   const handleImageError = () => {
-    console.warn(`Failed to load image for ${president.name}: ${president.portrait}`);
+    console.error(`Failed to load image for ${president.name}: ${imageSrc}`);
     
-    if (retryCount < 2) {
-      // Retry loading the image
+    if (retryCount < 3) {
+      // Try different cache-busting strategies
+      const strategies = [
+        `${president.portrait}?v=${Date.now()}`,
+        `${president.portrait}?retry=${retryCount + 1}`,
+        `${president.portrait}?t=${Math.random()}`,
+        president.portrait // Final attempt without cache busting
+      ];
+      
       setTimeout(() => {
         setRetryCount(prev => prev + 1);
-        setImageKey(prev => prev + 1);
+        setImageSrc(strategies[retryCount]);
         setIsLoading(true);
         setImageError(false);
-      }, 1000 * (retryCount + 1)); // Exponential backoff: 1s, 2s
+      }, 500 * (retryCount + 1)); // 500ms, 1s, 1.5s delays
     } else {
       setIsLoading(false);
       setImageError(true);
@@ -96,15 +102,6 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
     if (e.key === 'Enter' || e.key === ' ') {
       onClick();
     }
-  };
-
-  // Create a cache-busted URL for problematic images
-  const getImageSrc = () => {
-    const baseUrl = president.portrait;
-    if (retryCount > 0) {
-      return `${baseUrl}?retry=${retryCount}&key=${imageKey}`;
-    }
-    return baseUrl;
   };
 
   return (
@@ -123,26 +120,21 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
       >
         <div className="relative w-full" style={{ paddingTop: '100%' }}>
           {!imageError ? (
-            <Image
-              key={imageKey} // Force re-render when imageKey changes
-              src={getImageSrc()}
+            <img
+              src={imageSrc}
               alt={president.name}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-t-lg"
+              className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
               onLoad={handleImageLoad}
               onError={handleImageError}
-              priority={false} // Let Next.js handle priority
-              unoptimized={retryCount > 0} // Disable optimization for retries
+              loading="eager" // Force immediate loading
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-t-lg">
               <div className="text-center p-2">
                 <p className="text-red-500 text-sm font-medium mb-1">Image not available</p>
                 <p className="text-gray-600 text-xs">{president.name}</p>
-                {retryCount > 0 && (
-                  <p className="text-gray-500 text-xs mt-1">Retried {retryCount} times</p>
-                )}
+                <p className="text-gray-500 text-xs mt-1">Retried {retryCount} times</p>
+                <p className="text-gray-400 text-xs mt-1 break-all">{president.portrait}</p>
               </div>
             </div>
           )}
