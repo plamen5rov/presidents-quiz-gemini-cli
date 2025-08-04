@@ -26,6 +26,11 @@
 -   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 -   **Fonts:** Google Fonts (`Lora` & `Pirata One`)
 
+## ☝️ IMPORTANT!
+
+**This project was developed as an experiment for vibe-coding with** [GEMINI-CLI](https://github.com/google-gemini/gemini-cli)
+### I will describe my conclusions on this on a separate article or blog post and put a link here when it's published.
+
 ## 🛠️ Getting Started
 
 To run this project locally, follow these simple steps:
