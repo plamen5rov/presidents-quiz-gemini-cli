@@ -42,10 +42,14 @@ const GameResults = () => {
   const score = parseInt(searchParams.get('score') || '0', 10);
   const time = parseInt(searchParams.get('time') || '0', 10);
   const [history, setHistory] = useState<LevelResult[]>([]);
+  const scoreSaved = useRef(false);
 
   useEffect(() => {
-    const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
-    saveHighScore(playerName, score, time);
+    if (!scoreSaved.current) {
+      const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
+      saveHighScore(playerName, score, time);
+      scoreSaved.current = true;
+    }
   }, [score, time]);
 
   useEffect(() => {
