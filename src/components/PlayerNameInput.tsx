@@ -61,7 +61,17 @@ const PlayerNameInput = () => {
         </div>
       </main>
       <footer className="w-full bg-red-800/90 py-6">
-        <p className="text-white font-sans text-center text-lg">This game is for educational purposes only and is not affiliated with any official organization.</p>
+        <div className="flex justify-center items-center space-x-4">
+          <p className="text-white font-sans text-center text-lg">
+            This game is for educational purposes only and is not affiliated with any official organization. © 2025 <a href="mailto:biznetmen@gmail.com" className="underline hover:text-blue-300">Plamen Petrov</a>.
+          </p>
+          <a href="https://www.facebook.com/biznetmen/" target="_blank" rel="noopener noreferrer">
+            <img src="/images/facebook.svg" alt="Facebook" className="w-6 h-6" />
+          </a>
+          <a href="https://github.com/plamen5rov" target="_blank" rel="noopener noreferrer">
+            <img src="/images/github.svg" alt="GitHub" className="w-6 h-6" />
+          </a>
+        </div>
       </footer>
     </div>
   );
