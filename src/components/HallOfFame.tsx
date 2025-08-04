@@ -5,12 +5,20 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getHallOfFame, ScoreEntry } from '@/utils/hallOfFame';
 
-const HallOfFame = () => {
-  const [highScores, setHighScores] = useState<ScoreEntry[]>([]);
+interface HallOfFameProps {
+  scores?: ScoreEntry[];
+}
+
+const HallOfFame: React.FC<HallOfFameProps> = ({ scores }) => {
+  const [highScores, setHighScores] = useState<ScoreEntry[]>(scores || []);
 
   useEffect(() => {
-    setHighScores(getHallOfFame());
-  }, []);
+    if (!scores) {
+      setHighScores(getHallOfFame());
+    } else {
+      setHighScores(scores);
+    }
+  }, [scores]);
 
   const listVariants = {
     hidden: { opacity: 0 },

@@ -8,19 +8,21 @@ import HallOfFame from './HallOfFame';
 import { LevelResult } from '@/hooks/useGame';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { saveScore } from '@/utils/hallOfFame';
+import { saveScore, getHallOfFame, ScoreEntry } from '@/utils/hallOfFame';
 
 const GameResults = () => {
   const searchParams = useSearchParams();
   const score = parseInt(searchParams.get('score') || '0', 10);
   const time = parseInt(searchParams.get('time') || '0', 10);
   const [history, setHistory] = useState<LevelResult[]>([]);
+  const [hallOfFame, setHallOfFame] = useState<ScoreEntry[]>([]);
   const scoreSaved = useRef(false);
 
   useEffect(() => {
     if (!scoreSaved.current) {
       const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
       saveScore(playerName, score);
+      setHallOfFame(getHallOfFame());
       scoreSaved.current = true;
     }
   }, [score]);
@@ -113,7 +115,7 @@ const GameResults = () => {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <HallOfFame />
+          <HallOfFame scores={hallOfFame} />
         </motion.div>
       </motion.div>
     </div>
