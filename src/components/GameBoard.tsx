@@ -1,6 +1,5 @@
 // src/components/GameBoard.tsx
 'use client';
-
 import React from 'react';
 import { useGame } from '@/hooks/useGame';
 import { presidents } from '@/data/presidents';
@@ -30,22 +29,33 @@ const GameBoard = () => {
     }
   }, [isGameOver, score, totalTime, router]);
 
+  // Fixed preloading logic
   React.useEffect(() => {
-    // Preload images for the next level
-    if (level < totalLevels) {
-      const nextLevelPresidents = currentPresidents.map(p => {
-        const nextPresident = presidents.find(np => np.id === p.id + 1);
-        return nextPresident ? nextPresident.portrait : null;
-      }).filter(Boolean);
+    // Preload current level images first (most important)
+    currentPresidents.forEach(president => {
+      const img = new window.Image();
+      img.src = president.portrait;
+    });
 
-      nextLevelPresidents.forEach(portrait => {
-        if (portrait) {
+    // Preload a broader set of images for better coverage
+    // This ensures all presidential portraits are cached
+    const preloadImages = async () => {
+      const imagesToPreload = presidents.slice(0, Math.min(presidents.length, 50)); // Preload first 50
+      
+      imagesToPreload.forEach((president, index) => {
+        // Stagger the preloading to avoid overwhelming the browser
+        setTimeout(() => {
           const img = new window.Image();
-          img.src = portrait;
-        }
+          img.src = president.portrait;
+          img.onerror = () => {
+            console.warn(`Failed to preload image: ${president.portrait}`);
+          };
+        }, index * 50); // 50ms delay between each preload
       });
-    }
-  }, [level, totalLevels, currentPresidents]);
+    };
+
+    preloadImages();
+  }, [currentPresidents]);
 
   if (!targetPresident) {
     return <div>Loading...</div>;
@@ -61,21 +71,22 @@ const GameBoard = () => {
           <h2 className="text-xl md:text-2xl font-bold">Level {level} of {totalLevels}</h2>
           <div className="text-xl md:text-2xl font-bold">Score: {score}</div>
         </div>
-
+        
         <div className="text-center my-2 md:my-4 text-white">
           <span className="text-6xl font-bold drop-shadow-lg">TIME LEFT: </span>
           <span className="text-6xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
         </div>
-
+        
         <div className="mb-2 md:mb-4 text-center text-white">
           <p className="text-lg md:text-xl">
             Find: <span className="font-bold">{targetPresident.name}</span> ({targetPresident.years})
           </p>
         </div>
+        
         <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
           {currentPresidents.map((president) => (
             <PresidentCard
-              key={president.id}
+              key={`${level}-${president.id}`} // Add level to key for forced re-render
               president={president}
               isSelected={president.id === selectedPresidentId}
               isCorrect={president.id === targetPresident.id}
