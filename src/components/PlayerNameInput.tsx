@@ -61,7 +61,7 @@ const PlayerNameInput = () => {
         </div>
       </main>
       <footer className="w-full bg-red-800/90 py-6">
-        <p className="text-white font-sans text-center text-lg">This game is for educational purposes only.</p>
+        <p className="text-white font-sans text-center text-lg">This game is for educational purposes only and is not affiliated with any official organization.</p>
       </footer>
     </div>
   );

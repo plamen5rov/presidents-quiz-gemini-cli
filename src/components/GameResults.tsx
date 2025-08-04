@@ -7,6 +7,7 @@ import Link from 'next/link';
 import HallOfFame from './HallOfFame';
 import { LevelResult } from '@/hooks/useGame';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const MAX_HIGH_SCORES = 10;
 
@@ -48,27 +49,58 @@ const GameResults = () => {
     }
   }, [score, time]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-800 py-8">
-      <div className="w-full max-w-2xl p-8 space-y-6 text-center">
-        <h2 className="text-4xl font-bold text-white">Game Over!</h2>
-        <p className="text-2xl text-gray-300">Your Final Score:</p>
-        <p className="text-6xl font-bold text-blue-400">{score}</p>
-        <p className="text-2xl text-gray-300 mt-2">Total Time: {time} seconds</p>
-        <Link href="/" passHref>
-          <button className="w-full px-4 py-2 mt-4 font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700">
-            Play Again
-          </button>
-        </Link>
+      <motion.div 
+        className="w-full max-w-2xl p-8 space-y-6 text-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h2 variants={itemVariants} className="text-4xl font-bold text-white">Game Over!</motion.h2>
+        <motion.p variants={itemVariants} className="text-2xl text-gray-300">Your Final Score:</motion.p>
+        <motion.p variants={itemVariants} className="text-6xl font-bold text-blue-400">{score}</motion.p>
+        <motion.p variants={itemVariants} className="text-2xl text-gray-300 mt-2">Total Time: {time} seconds</motion.p>
+        <motion.div variants={itemVariants}>
+          <Link href="/" passHref>
+            <button className="w-full px-4 py-2 mt-4 font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700">
+              Play Again
+            </button>
+          </Link>
+        </motion.div>
         
-        <div className="pt-6">
+        <motion.div variants={itemVariants} className="pt-6">
           <h3 className="text-2xl font-bold text-white mb-4">Answer Review</h3>
           <div className="space-y-4 max-h-96 overflow-y-auto text-white">
-            {history.map(item => (
-              <div 
-                key={item.level} 
+            {history.map((item, index) => (
+              <motion.div
+                key={item.level}
                 className="p-4 rounded-lg"
                 style={{ backgroundColor: item.isCorrect ? '#4A9782' : '#B12C00' }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
                 <p className="font-bold text-lg">Level {item.level} ({item.timeTaken}s)</p>
                 <p>Target: {item.targetPresident.name}</p>
@@ -92,13 +124,15 @@ const GameResults = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <HallOfFame />
-      </div>
+        <motion.div variants={itemVariants}>
+          <HallOfFame />
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

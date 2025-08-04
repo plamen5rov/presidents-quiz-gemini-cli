@@ -14,6 +14,7 @@ interface PresidentCardProps {
 
 const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, isCorrect, isTarget, answerStatus }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [ripples, setRipples] = useState<React.CSSProperties[]>([]);
 
   const getBorderColor = () => {
     if (answerStatus === 'idle') {
@@ -28,8 +29,29 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
     return 'border-transparent';
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+
+    const newRipple: React.CSSProperties = {
+      top: y,
+      left: x,
+      width: size,
+      height: size,
+    };
+
+    setRipples([...ripples, newRipple]);
+
+    setTimeout(() => {
+      setRipples(ripples.slice(1));
+    }, 600);
+  };
+
   return (
-    <div className="relative">
+    <div className="relative" onClick={handleClick}>
       {isLoading && <SkeletonCard />}
       <div 
         className={`bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer border-4 ${getBorderColor()} ${isLoading ? 'opacity-0' : 'opacity-100'}`}
@@ -43,6 +65,9 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
             className="rounded-t-lg"
             onLoad={() => setIsLoading(false)}
           />
+           {ripples.map((style, index) => (
+            <span key={index} className="ripple" style={style} />
+          ))}
         </div>
         <div className="p-2 text-center">
           {/* Name removed for quiz */}
