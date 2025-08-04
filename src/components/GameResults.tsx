@@ -1,7 +1,7 @@
 // src/components/GameResults.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import HallOfFame from './HallOfFame';
