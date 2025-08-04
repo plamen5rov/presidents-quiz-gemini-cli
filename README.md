@@ -78,5 +78,5 @@ If you enjoyed playing this game or found the code helpful, please consider givi
 
 ## 📈 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=plamen5rov/presidents-quiz-gemini-cli&type=Date)](https://www.star-history.com/#plamen5rov/presidents-quiz-gemini-cli&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=plamen5rov/presidents-quiz-gemini-cli&type=Date&v=2)](https://star-history.com/#plamen5rov/presidents-quiz-gemini-cli&Date)
 
