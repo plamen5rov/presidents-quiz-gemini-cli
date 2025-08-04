@@ -20,6 +20,4 @@ const HallOfFame = () => {
     }
   }, []);
 
-  }, []);
-
   const listVariants = {
