@@ -49,7 +49,7 @@ To run this project locally, follow these simple steps:
 4.  Open [http://localhost:3000](http://localhost:3000) in your browser to start playing!
 
 ## 🎮 Live Demo
-[👉 Play the Game Here](https://github.com/plamen5rov/presidents-quiz-gemini-cli)  
+[👉 Play the Game Here](https://presidents-quiz-one.vercel.app/)  
 
 ## 🎮 Demo
 
