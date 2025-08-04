@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import HallOfFame from './HallOfFame';
+import Image from 'next/image';
 
 const PlayerNameInput = () => {
   const [playerName, setPlayerName] = useState('');
@@ -24,7 +25,7 @@ const PlayerNameInput = () => {
     >
       <header className="w-full bg-blue-900/90 py-4">
         <div className="flex justify-center items-center">
-          <img src="/images/whitehouse.png" alt="White House" className="h-12 md:h-32 mr-4" />
+          <Image src="/images/whitehouse.png" alt="White House" width={128} height={128} className="h-12 md:h-32 mr-4 w-auto" />
           <h1 className="text-5xl md:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
             U.S. Presidents Quiz
           </h1>
@@ -70,10 +71,10 @@ const PlayerNameInput = () => {
             This game is for educational purposes only and is not affiliated with any official organization. © 2025 <a href="mailto:biznetmen@gmail.com" className="underline hover:text-blue-300">Plamen Petrov</a>.
           </p>
           <a href="https://www.facebook.com/biznetmen/" target="_blank" rel="noopener noreferrer" aria-label="Facebook page for Plamen Petrov">
-            <img src="/images/facebook.svg" alt="Facebook" className="w-6 h-6" />
+            <Image src="/images/facebook.svg" alt="Facebook" width={24} height={24} className="w-6 h-6" />
           </a>
           <a href="https://github.com/plamen5rov" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile for Plamen Petrov">
-            <img src="/images/github.svg" alt="GitHub" className="w-6 h-6" />
+            <Image src="/images/github.svg" alt="GitHub" width={24} height={24} className="w-6 h-6" />
           </a>
         </div>
       </footer>

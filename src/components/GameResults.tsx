@@ -9,29 +9,15 @@ import { LevelResult } from '@/hooks/useGame';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-const MAX_HIGH_SCORES = 10;
-
-interface ScoreEntry {
-  name: string;
-  score: number;
-  time: number;
-}
-
-const saveHighScore = (name: string, score: number, time: number) => {
+const saveHighScore = async (playerName: string, score: number) => {
   try {
-    const storedScores = localStorage.getItem('highScores');
-    const highScores: ScoreEntry[] = storedScores ? JSON.parse(storedScores) : [];
-
-    const newHighScores = [...highScores, { name, score, time }]
-      .sort((a, b) => {
-        if (a.score !== b.score) {
-          return b.score - a.score;
-        }
-        return a.time - b.time;
-      })
-      .slice(0, MAX_HIGH_SCORES);
-
-    localStorage.setItem('highScores', JSON.stringify(newHighScores));
+    await fetch('/api/hall-of-fame', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ playerName, score }),
+    });
   } catch (error) {
     console.error('Failed to save high score:', error);
   }
@@ -47,10 +33,10 @@ const GameResults = () => {
   useEffect(() => {
     if (!scoreSaved.current) {
       const playerName = sessionStorage.getItem('playerName') || 'Anonymous';
-      saveHighScore(playerName, score, time);
+      saveHighScore(playerName, score);
       scoreSaved.current = true;
     }
-  }, [score, time]);
+  }, [score]);
 
   useEffect(() => {
     const gameHistory = sessionStorage.getItem('gameHistory');

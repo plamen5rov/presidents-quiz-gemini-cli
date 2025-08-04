@@ -5,19 +5,21 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface ScoreEntry {
-  name: string;
+  playerName: string;
   score: number;
-  time: number;
 }
 
 const HallOfFame = () => {
   const [highScores, setHighScores] = useState<ScoreEntry[]>([]);
 
   useEffect(() => {
-    const storedScores = localStorage.getItem('highScores');
-    if (storedScores) {
-      setHighScores(JSON.parse(storedScores));
-    }
+    const fetchHighScores = async () => {
+      const response = await fetch('/api/hall-of-fame');
+      const data = await response.json();
+      setHighScores(data);
+    };
+
+    fetchHighScores();
   }, []);
 
   const listVariants = {
@@ -63,8 +65,8 @@ const HallOfFame = () => {
                 className="flex justify-between text-2xl text-stone-800 font-bold"
                 variants={itemVariants}
               >
-                <span>{index + 1}. {entry.name}</span>
-                <span>{entry.score} pts ({entry.time}s)</span>
+                <span>{index + 1}. {entry.playerName}</span>
+                <span>{entry.score} pts</span>
               </motion.li>
             ))}
           </motion.ol>
