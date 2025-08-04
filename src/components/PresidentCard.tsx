@@ -52,19 +52,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({ president, isSelected, is
     }, 600);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      onClick();
-    }
-  };
-
   const [imageError, setImageError] = useState(false);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      onClick();
-    }
-  };
 
   return (
     <div 
