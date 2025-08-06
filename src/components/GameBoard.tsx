@@ -63,27 +63,27 @@ const GameBoard = () => {
 
   return (
     <div 
-      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-2"
+      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-1 sm:p-2 md:p-4"
     >
       <ConfettiEffect trigger={answerStatus === 'correct'} />
       <div className="w-full max-w-7xl">
-        <div className="flex justify-between items-center mb-1 md:mb-2 text-white">
-          <h2 className="text-lg md:text-2xl font-bold">Level {level} of {totalLevels}</h2>
-          <div className="text-lg md:text-2xl font-bold">Score: {score}</div>
+        <div className="flex justify-between items-center mb-1 sm:mb-2 text-white">
+          <h2 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold">Level {level} of {totalLevels}</h2>
+          <div className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold">Score: {score}</div>
         </div>
         
-        <div className="text-center my-1 md:my-2 text-white">
-          <span className="text-4xl md:text-6xl font-bold drop-shadow-lg">Time: </span>
-          <span className="text-4xl md:text-6xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
+        <div className="text-center my-1 sm:my-2 text-white">
+          <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg">Time: </span>
+          <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
         </div>
         
-        <div className="mb-1 md:mb-2 text-center text-white">
-          <p className="text-base md:text-xl">
+        <div className="mb-1 sm:mb-2 text-center text-white">
+          <p className="text-xs sm:text-base md:text-lg lg:text-xl">
             Find: <span className="font-bold">{targetPresident.name}</span> ({targetPresident.years})
           </p>
         </div>
         
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 md:gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-1 sm:gap-2">
           {currentPresidents.map((president) => (
             <PresidentCard
               key={`${level}-${president.id}`} // Add level to key for forced re-render
