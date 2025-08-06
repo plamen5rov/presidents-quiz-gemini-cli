@@ -24,7 +24,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
   const [ripples, setRipples] = useState<React.CSSProperties[]>([]);
   const [imageError, setImageError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  const [imageSrc, setImageSrc] = useState('');
+  const [imageSrc, setImageSrc] = useState(president.portrait);
 
   // Reset state when president changes
   useEffect(() => {
