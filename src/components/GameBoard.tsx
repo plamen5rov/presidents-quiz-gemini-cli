@@ -63,7 +63,7 @@ const GameBoard = () => {
 
   return (
     <div 
-      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-2 sm:p-4 md:p-6 lg:p-8"
+      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-red-900 p-2"
     >
       <ConfettiEffect trigger={answerStatus === 'correct'} />
       <div className="w-full max-w-7xl">
