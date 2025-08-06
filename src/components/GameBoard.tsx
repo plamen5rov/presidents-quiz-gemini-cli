@@ -73,7 +73,7 @@ const GameBoard = () => {
         </div>
         
         <div className="text-center my-1 md:my-2 text-white">
-          <span className="text-4xl md:text-6xl font-bold drop-shadow-lg">TIME LEFT: </span>
+          <span className="text-4xl md:text-6xl font-bold drop-shadow-lg">Time: </span>
           <span className="text-4xl md:text-6xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
         </div>
         
