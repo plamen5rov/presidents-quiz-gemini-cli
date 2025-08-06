@@ -26,13 +26,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
   const [retryCount, setRetryCount] = useState(0);
   const [imageSrc, setImageSrc] = useState(president.portrait);
 
-  // Reset state when president changes
-  useEffect(() => {
-    setIsLoading(true);
-    setImageError(false);
-    setRetryCount(0);
-    setImageSrc(president.portrait);
-  }, [president.id, president.portrait]);
+  
 
   const getBorderColor = () => {
     if (answerStatus === 'idle') {
