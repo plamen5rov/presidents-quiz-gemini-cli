@@ -1,5 +1,6 @@
 // src/components/PresidentCard.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { President } from '@/data/presidents';
 import SkeletonCard from './SkeletonCard';
 
@@ -114,13 +115,14 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
       >
         <div className="relative w-full" style={{ paddingTop: '100%' }}>
           {!imageError ? (
-            <img
+            <Image
               src={imageSrc}
               alt={president.name}
-              className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
+              fill
+              className="object-cover rounded-t-lg"
               onLoad={handleImageLoad}
               onError={handleImageError}
-              loading="eager" // Force immediate loading
+              priority
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-t-lg">
