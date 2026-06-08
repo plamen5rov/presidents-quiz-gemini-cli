@@ -13,7 +13,7 @@
 - 🇺🇸 Guess presidents by photo or clues (years of service)
 - 🧠 Tracks your score - best score & time enters you to the Hall of Fame
 - 🕹️ Playable in-browser – no downloads
-- 📱 Fully responsive design (still beter gameplay on destop, though)
+- 📱 Fully responsive design (still better gameplay on desktop, though)
 - 🧾 Educational focus - play it a few times and you will learn them all. No kidding!
 
 > If you enjoy the game or find it useful, please consider giving the repo a ⭐️ — it really helps!
