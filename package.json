@@ -12,9 +12,12 @@
   "dependencies": {
     "canvas-confetti": "^1.9.3",
     "framer-motion": "^12.23.12",
-    "next": "15.4.5",
+    "next": "^15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0"
+  },
+  "overrides": {
+    "test-exclude": "^8.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
