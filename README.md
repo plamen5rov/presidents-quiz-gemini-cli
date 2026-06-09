@@ -16,6 +16,8 @@
 - 📱 Fully responsive design (still better gameplay on desktop, though)
 - 🧾 Educational focus - play it a few times and you will learn them all. No kidding!
 
+> **Note:** Hall of Fame scores are stored locally in your browser — each player has their own leaderboard.
+
 > If you enjoy the game or find it useful, please consider giving the repo a ⭐️ — it really helps!
 
 
@@ -24,7 +26,7 @@
 -   **Framework:** [Next.js](https://nextjs.org/)
 -   **Language:** [TypeScript](https://www.typescriptlang.org/)
 -   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
--   **Fonts:** Google Fonts (`Lora` & `Pirata One`)
+-   **Fonts:** Google Fonts (`Lora`, `Pirata One` & `Orbitron`)
 
 ## ☝️ IMPORTANT!
 

@@ -1,14 +1,14 @@
 // src/components/ConfettiEffect.tsx
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, type FC } from 'react';
 import confetti from 'canvas-confetti';
 
 interface ConfettiEffectProps {
   trigger: boolean;
 }
 
-const ConfettiEffect: React.FC<ConfettiEffectProps> = ({ trigger }) => {
+const ConfettiEffect: FC<ConfettiEffectProps> = ({ trigger }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

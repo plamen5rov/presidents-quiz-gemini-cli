@@ -1,6 +1,6 @@
 // src/components/GameBoard.tsx
 'use client';
-import React from 'react';
+import { useEffect, useCallback } from 'react';
 import { useGame } from '@/hooks/useGame';
 import { presidents } from '@/data/presidents';
 import PresidentCard from './PresidentCard';
@@ -17,45 +17,32 @@ const GameBoard = () => {
     targetPresident,
     isGameOver,
     handleAnswer,
+    handleSkip,
     totalLevels,
     answerStatus,
     selectedPresidentId,
     timeLeft,
   } = useGame();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isGameOver) {
       router.push(`/results?score=${score}&time=${totalTime}`);
     }
   }, [isGameOver, score, totalTime, router]);
 
-  // Fixed preloading logic
-  React.useEffect(() => {
-    // Preload current level images first (most important)
-    currentPresidents.forEach(president => {
+  const onCardClick = useCallback((presidentId: number) => {
+    handleAnswer(presidentId);
+  }, [handleAnswer]);
+
+  const maxScore = totalLevels * 10;
+
+  // Preload all president images once on mount
+  useEffect(() => {
+    presidents.forEach(president => {
       const img = new window.Image();
       img.src = president.portrait;
     });
-
-    // Preload a broader set of images for better coverage
-    // This ensures all presidential portraits are cached
-    const preloadImages = async () => {
-      const imagesToPreload = presidents.slice(0, Math.min(presidents.length, 50)); // Preload first 50
-      
-      imagesToPreload.forEach((president, index) => {
-        // Stagger the preloading to avoid overwhelming the browser
-        setTimeout(() => {
-          const img = new window.Image();
-          img.src = president.portrait;
-          img.onerror = () => {
-            console.warn(`Failed to preload image: ${president.portrait}`);
-          };
-        }, index * 50); // 50ms delay between each preload
-      });
-    };
-
-    preloadImages();
-  }, [currentPresidents]);
+  }, []);
 
   if (!targetPresident) {
     return <div>Loading...</div>;
@@ -69,30 +56,41 @@ const GameBoard = () => {
       <div className="w-full max-w-7xl">
         <div className="flex justify-between items-center mb-1 sm:mb-2 text-white">
           <h2 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold">Level {level} of {totalLevels}</h2>
-          <div className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold">Score: {score}</div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold">Score: {score} / {maxScore}</div>
+            <div className="text-white flex items-center gap-1" aria-live="polite">
+              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold drop-shadow-lg">Time:</span>
+              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
+            </div>
+          </div>
         </div>
         
-        <div className="text-center my-1 sm:my-2 text-white">
-          <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold drop-shadow-lg">Time: </span>
-          <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold drop-shadow-lg animate-pulse">{timeLeft}</span>
-        </div>
-        
-        <div className="mb-1 sm:mb-2 text-center text-white">
-          <p className="text-xs sm:text-base md:text-lg lg:text-xl">
+        <div className="mb-1 sm:mb-2 flex justify-center gap-4 items-center">
+          <p className="text-base sm:text-lg md:text-2xl lg:text-4xl text-white">
             Find: <span className="font-bold">{targetPresident.name}</span> ({targetPresident.years})
           </p>
+          {answerStatus === 'idle' && (
+            <button
+              type="button"
+              onClick={handleSkip}
+              className="px-3 py-1 text-sm font-bold text-white bg-gray-600/70 hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              Skip
+            </button>
+          )}
         </div>
         
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-1 sm:gap-2">
-          {currentPresidents.map((president) => (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-1 sm:gap-2">
+          {currentPresidents.map((president, index) => (
             <PresidentCard
-              key={`${level}-${president.id}`} // Add level to key for forced re-render
+              key={president.id}
               president={president}
               isSelected={president.id === selectedPresidentId}
               isCorrect={president.id === targetPresident.id}
               isTarget={president.id === targetPresident.id}
               answerStatus={answerStatus}
-              onClick={() => handleAnswer(president.id)}
+              onClick={() => onCardClick(president.id)}
+              index={index}
             />
           ))}
         </div>

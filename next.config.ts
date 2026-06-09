@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   images: {
     // Disable optimization in development to avoid caching issues
     unoptimized: process.env.NODE_ENV === 'development',
+
+    localPatterns: [
+      {
+        pathname: '/**',
+        search: '',
+      },
+    ],
     
     // Add any external domains if you ever use external images
     remotePatterns: [
@@ -17,7 +24,7 @@ const nextConfig: NextConfig = {
     ],
     
     // Cache settings for better performance
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 31536000,
     
     // Image formats to support
     formats: ['image/webp', 'image/avif'],

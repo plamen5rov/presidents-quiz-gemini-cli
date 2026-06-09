@@ -1,23 +1,33 @@
 // src/components/HallOfFame.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { motion } from 'framer-motion';
-import { getHallOfFame, ScoreEntry } from '@/utils/hallOfFame';
+import Image from 'next/image';
+import { getHallOfFame, type ScoreEntry } from '@/utils/hallOfFame';
 
 interface HallOfFameProps {
   scores?: ScoreEntry[];
 }
 
-const HallOfFame: React.FC<HallOfFameProps> = ({ scores }) => {
+const MEDALS = ['🥇', '🥈', '🥉'];
+
+const HallOfFame: FC<HallOfFameProps> = ({ scores }) => {
   const [highScores, setHighScores] = useState<ScoreEntry[]>(scores || []);
 
   useEffect(() => {
-    if (!scores) {
-      setHighScores(getHallOfFame());
-    } else {
-      setHighScores(scores);
-    }
+    const loadScores = () => {
+      setHighScores(scores || getHallOfFame());
+    };
+    loadScores();
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'hallOfFame' && !scores) {
+        loadScores();
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, [scores]);
 
   const listVariants = {
@@ -39,12 +49,13 @@ const HallOfFame: React.FC<HallOfFameProps> = ({ scores }) => {
   };
 
   return (
-    <div className="relative w-full p-6 mt-8 rounded-lg shadow-inner border-4 border-amber-900/50">
-      <div
-        className="absolute inset-0 bg-cover opacity-80 rounded-lg"
-        style={{
-          backgroundImage: "url('/images/paper.jpg')",
-        }}
+    <div className="relative w-full p-6 mt-8 rounded-lg shadow-inner border-4 border-amber-900/50 overflow-hidden">
+      <Image
+        src="/images/paper.jpg"
+        alt=""
+        fill
+        className="object-cover opacity-80 rounded-lg"
+        sizes="(max-width: 640px) 100vw, 448px"
       />
       <div className="relative z-10">
         <h3 className="text-4xl font-bold text-center text-stone-800 mb-4 font-pirata">
@@ -59,11 +70,11 @@ const HallOfFame: React.FC<HallOfFameProps> = ({ scores }) => {
           >
             {highScores.map((entry, index) => (
               <motion.li 
-                key={index} 
+                key={`${entry.playerName}-${entry.score}`} 
                 className="flex justify-between text-2xl text-stone-800 font-bold"
                 variants={itemVariants}
               >
-                <span>{index + 1}. {entry.playerName}</span>
+                <span>{index < 3 ? `${MEDALS[index]} ` : `${index + 1}. `}{entry.playerName}</span>
                 <span>{entry.score} pts</span>
               </motion.li>
             ))}

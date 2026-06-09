@@ -1,7 +1,7 @@
 // src/components/PresidentCard.tsx
-import React, { useState } from 'react';
+import { useState, type FC, type CSSProperties, type MouseEvent, type KeyboardEvent } from 'react';
 import Image from 'next/image';
-import { President } from '@/data/presidents';
+import type { President } from '@/data/presidents';
 import SkeletonCard from './SkeletonCard';
 
 interface PresidentCardProps {
@@ -11,18 +11,20 @@ interface PresidentCardProps {
   isTarget: boolean;
   answerStatus: 'correct' | 'incorrect' | 'idle';
   onClick: () => void;
+  index: number;
 }
 
-const PresidentCard: React.FC<PresidentCardProps> = ({ 
+const PresidentCard: FC<PresidentCardProps> = ({ 
   president, 
   isSelected, 
   isCorrect, 
   isTarget, 
   answerStatus, 
-  onClick 
+  onClick,
+  index,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [ripples, setRipples] = useState<React.CSSProperties[]>([]);
+  const [ripples, setRipples] = useState<CSSProperties[]>([]);
   const [imageError, setImageError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const [imageSrc, setImageSrc] = useState(president.portrait);
@@ -42,7 +44,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
     return 'border-transparent';
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     onClick();
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -50,7 +52,7 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
     const x = e.clientX - rect.left - size / 2;
     const y = e.clientY - rect.top - size / 2;
 
-    const newRipple: React.CSSProperties = {
+    const newRipple: CSSProperties = {
       top: y,
       left: x,
       width: size,
@@ -65,7 +67,9 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
   };
 
   const handleImageError = () => {
-    console.error(`Failed to load image for ${president.name}: ${imageSrc}`);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(`Failed to load image for ${president.name}: ${imageSrc}`);
+    }
     
     if (retryCount < 3) {
       // Try different cache-busting strategies
@@ -93,22 +97,28 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
     setImageError(false);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       onClick();
     }
   };
 
+  const answerLabel = answerStatus !== 'idle' && isSelected
+    ? (isCorrect ? 'Correct' : 'Incorrect')
+    : '';
+  const isPressed = answerStatus !== 'idle' && isSelected;
+
   return (
     <div 
-      className="relative" 
+      className="relative focus-within:ring-2 focus-within:ring-white focus-within:ring-offset-2 focus-within:ring-offset-blue-900 rounded-lg" 
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={`Select ${president.name}`}
+      aria-label={`Select ${president.name}${answerLabel ? ` - ${answerLabel}` : ''}`}
+      aria-pressed={isPressed || undefined}
     >
-      {isLoading && !imageError && <SkeletonCard />}
+      {isLoading && !imageError && <div aria-hidden="true"><SkeletonCard /></div>}
       
       <div 
         className={`bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer border-4 ${getBorderColor()} ${isLoading && !imageError ? 'opacity-0' : 'opacity-100'}`}
@@ -119,10 +129,11 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
               src={imageSrc}
               alt={president.name}
               fill
+              sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, (max-width: 1024px) 20vw, 16vw"
               className="object-cover rounded-t-lg"
               onLoad={handleImageLoad}
               onError={handleImageError}
-              priority
+              priority={index < 3}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-t-lg">
@@ -140,12 +151,16 @@ const PresidentCard: React.FC<PresidentCardProps> = ({
           ))}
         </div>
         
-        <div className="p-2 text-center">
-          {/* Name removed for quiz */}
+        <div className="p-2 text-center" aria-hidden="true">
+          {answerLabel && (
+            <span className={`text-xs font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+              {answerLabel}
+            </span>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default React.memo(PresidentCard);
+export default PresidentCard;

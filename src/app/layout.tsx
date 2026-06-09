@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Lora, Pirata_One, Orbitron } from "next/font/google";
 import "./globals.css";
 
@@ -31,10 +32,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
     <head>
       <script defer src="https://cloud.umami.is/script.js" data-website-id="4a407f6f-1710-4d11-b488-74288e53fc4e"></script>
     </head>

@@ -1,7 +1,7 @@
 // src/components/PlayerNameInput.tsx
 'use client';
 
-import React, { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import HallOfFame from './HallOfFame';
 import Image from 'next/image';
@@ -10,23 +10,33 @@ const PlayerNameInput = () => {
   const [playerName, setPlayerName] = useState('');
   const router = useRouter();
 
-  const handleStartGame = (e: React.FormEvent) => {
+  const handleStartGame = (e: FormEvent) => {
     e.preventDefault();
     if (playerName.trim()) {
-      sessionStorage.setItem('playerName', playerName);
+      document.cookie = `playerName=${encodeURIComponent(playerName)}; path=/; max-age=86400`;
       router.push('/instructions');
     }
   };
 
   return (
-    <div 
-      className="min-h-screen bg-cover bg-center flex flex-col"
-      style={{ backgroundImage: "url('/images/oval-office.jpg')" }}
-    >
+    <div className="min-h-screen flex flex-col relative">
+      <Image
+        src="/images/oval-office.jpg"
+        alt="Oval Office"
+        fill
+        className="object-cover -z-10"
+        priority
+      />
       <header className="w-full bg-blue-900/90 py-4">
-        <div className="flex justify-center items-center">
-          <Image src="/images/whitehouse.png" alt="White House" width={128} height={128} className="h-12 md:h-32 mr-4 w-auto" />
-          <h1 className="text-5xl md:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+        <div className="flex justify-center items-center gap-2 sm:gap-4">
+          <Image 
+            src="/images/whitehouse.png" 
+            alt="White House" 
+            width={128} 
+            height={128} 
+            className="h-10 sm:h-16 md:h-24 lg:h-32 w-auto" 
+          />
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-9xl font-orbitron font-bold text-white text-center uppercase" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
             U.S. Presidents Quiz
           </h1>
         </div>
@@ -65,17 +75,19 @@ const PlayerNameInput = () => {
           <HallOfFame />
         </div>
       </main>
-      <footer className="w-full bg-red-800/90 py-6">
-        <div className="flex justify-center items-center space-x-4">
-          <p className="text-white font-sans text-center text-lg">
-            This game is for educational purposes only and is not affiliated with any official organization. © 2025 <a href="mailto:biznetmen@gmail.com" className="underline hover:text-blue-300">Plamen Petrov</a>.
+      <footer className="w-full bg-red-800/90 py-4 sm:py-6">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <p className="text-white font-sans text-sm sm:text-base md:text-lg">
+            This game is for educational purposes only and is not affiliated with any official organization. © {new Date().getFullYear()} <a href="mailto:biznetmen@gmail.com" className="underline hover:text-blue-300">Plamen Petrov</a>.
           </p>
-          <a href="https://www.facebook.com/biznetmen/" target="_blank" rel="noopener noreferrer" aria-label="Facebook page for Plamen Petrov">
-            <Image src="/images/facebook.svg" alt="Facebook" width={24} height={24} className="w-6 h-6" />
-          </a>
-          <a href="https://github.com/plamen5rov" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile for Plamen Petrov">
-            <Image src="/images/github.svg" alt="GitHub" width={24} height={24} className="w-6 h-6" />
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="https://www.facebook.com/biznetmen/" target="_blank" rel="noopener noreferrer" aria-label="Facebook page for Plamen Petrov">
+              <Image src="/images/facebook.svg" alt="Facebook" width={24} height={24} />
+            </a>
+            <a href="https://github.com/plamen5rov" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile for Plamen Petrov">
+              <Image src="/images/github.svg" alt="GitHub" width={24} height={24} />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
